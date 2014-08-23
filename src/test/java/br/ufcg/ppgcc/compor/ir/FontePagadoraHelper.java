@@ -30,7 +30,6 @@ public class FontePagadoraHelper {
 		for (int i = 0; i < fontes.length; i++) {
 			assertEquals(fontes[i], fontesSalvas.get(i));
 		}
-		
 	}
 
 }
