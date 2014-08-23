@@ -13,9 +13,10 @@ import br.ufcg.ppgcc.compor.ir.Titular;
 public class ImpostoDeRenda implements FachadaExperimento {
 
 	private List<Titular> titular1 = new ArrayList<Titular>() ;
-	
 	private Map<Titular, List<FontePagadora>> mapaFontes = new HashMap<Titular, List<FontePagadora>>();
 	private List<FontePagadora> fontes = new ArrayList<FontePagadora>() ;
+	
+	
 	
 	public void criarNovoTitular(Titular titular) {
 		if (titular.getNome() == null){
@@ -30,6 +31,7 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		}
 		
 		titular1.add(titular);
+		
 
 		
 	}
@@ -41,15 +43,29 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		//return null;
 	}
 
+	
 	public void criarFontePagadora(Titular titular, FontePagadora fonte) {
+		/* Primeira coisa, eu preciso pegar a fonte do titular, se já existir */
+		List<FontePagadora> fontesDoTitular = mapaFontes.get(titular);
 		
-		fontes.add(fonte);
-		mapaFontes.put(titular, fontes);
+		/* Verifico se existe, ou se é null */
+		if (fontesDoTitular == null) {
+			/* Se não existe, cria nova lista */
+			fontesDoTitular = new ArrayList<FontePagadora>();
+		}
+		/* Adiciona a nova fonte na nova lista, ou na lista que já existia */
+		fontesDoTitular.add(fonte);
 		
+		/* Devolvo ao mapa */
+		mapaFontes.put(titular, fontesDoTitular);
+		
+//		fontes.add(fonte);
 	}
 
 	public List<FontePagadora> listarFontes(Titular titular) {
 		return mapaFontes.get(titular);
 	}
+
+	
 
 }
