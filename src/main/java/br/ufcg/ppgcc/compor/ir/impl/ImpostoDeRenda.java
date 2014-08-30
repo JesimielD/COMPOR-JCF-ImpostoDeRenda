@@ -76,7 +76,9 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		if (fonte.getRendimentoRecebidos() < 0){
 			throw new ExcecaoImpostoDeRenda("O campo rendimentos recebidos deve ser maior que zero");				
 		}
-		
+		if ((fonte.getCpfCnpj() != null) && (fonte.getCpfCnpj().length() != 18)){
+			throw new ExcecaoImpostoDeRenda("O campo CPF/CNPJ é inválido");				
+		}
 		//*/
 	}
 
