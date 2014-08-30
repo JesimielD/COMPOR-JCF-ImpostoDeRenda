@@ -30,7 +30,9 @@ public class ImpostoDeRenda implements FachadaExperimento {
 			throw new ExcecaoImpostoDeRenda("O campo CPF está inválido");				
 		}
 		
+		fontes = new ArrayList<FontePagadora>();
 		titular1.add(titular);
+		mapaFontes.put(titular, fontes);
 		
 
 		
@@ -42,22 +44,24 @@ public class ImpostoDeRenda implements FachadaExperimento {
 
 		//return null;
 	}
-
-	
+	public List<FontePagadora> listarFontes(Titular titular) {
+		// TODO Auto-generated method stub
+		return mapaFontes.get(titular);
+	}
 	public void criarFontePagadora(Titular titular, FontePagadora fonte) {
 		/* Primeira coisa, eu preciso pegar a fonte do titular, se já existir */
 		List<FontePagadora> fontesDoTitular = mapaFontes.get(titular);
 		
 		/* Verifico se existe, ou se é null */
-		if (fontesDoTitular == null) {
+		//if (fontesDoTitular == null) {
 			/* Se não existe, cria nova lista */
-			fontesDoTitular = new ArrayList<FontePagadora>();
-		}
+			//fontesDoTitular = new ArrayList<FontePagadora>();
+		//}
 		/* Adiciona a nova fonte na nova lista, ou na lista que já existia */
-		fontesDoTitular.add(fonte);
+		//fontesDoTitular.add(fonte);
 		
 		/* Devolvo ao mapa */
-		mapaFontes.put(titular, fontesDoTitular);
+		//mapaFontes.put(titular, fontesDoTitular);
 		
 //		fontes.add(fonte);
 		
@@ -79,12 +83,34 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		if ((fonte.getCpfCnpj() != null) && (fonte.getCpfCnpj().length() != 18)){
 			throw new ExcecaoImpostoDeRenda("O campo CPF/CNPJ é inválido");				
 		}
+		
 		//*/
+		/* Verifico se existe, ou se é null */
+		if (fontesDoTitular == null) {
+			throw new ExcecaoImpostoDeRenda("Titular não cadastrado");
+			/* Se não existe, cria nova lista */
+			//fontesDoTitular = new ArrayList<FontePagadora>();
+		}
+		/* Adiciona a nova fonte na nova lista, ou na lista que já existia */
+		
+		fontesDoTitular.add(fonte);
+		//fontes.add(fonte);
+		
+		
+		
+			/* Devolvo ao mapa */
+		//mapaFontes.put(titular, fontes);
+		
+		
+		
+//		fontes.add(fonte);
+		
+		
 	}
 
-	public List<FontePagadora> listarFontes(Titular titular) {
-		return mapaFontes.get(titular);
-	}
+	//public List<FontePagadora> listarFontes(Titular titular) {
+	//	return mapaFontes.get(titular);
+	//}
 
 	
 
