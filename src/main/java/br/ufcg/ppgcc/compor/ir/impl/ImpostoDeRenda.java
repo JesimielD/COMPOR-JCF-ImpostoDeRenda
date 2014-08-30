@@ -60,6 +60,24 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		mapaFontes.put(titular, fontesDoTitular);
 		
 //		fontes.add(fonte);
+		
+//		T.02.04
+		
+		if (fonte.getNome() == null){
+			throw new ExcecaoImpostoDeRenda("O campo nome é obrigatório");				
+		} 
+
+		if (fonte.getCpfCnpj() == null){
+			throw new ExcecaoImpostoDeRenda("O campo CPF/CNPJ é obrigatório");				
+		}
+		if (fonte.getRendimentoRecebidos() == 0){
+			throw new ExcecaoImpostoDeRenda("O campo rendimentos recebidos é obrigatório");				
+		}
+		if (fonte.getRendimentoRecebidos() < 0){
+			throw new ExcecaoImpostoDeRenda("O campo rendimentos recebidos deve ser maior que zero");				
+		}
+		
+		//*/
 	}
 
 	public List<FontePagadora> listarFontes(Titular titular) {
