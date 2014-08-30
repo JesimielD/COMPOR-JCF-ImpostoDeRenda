@@ -36,7 +36,6 @@ public class FontePagadoraHelper {
 		for (int i = 0; i < fontes.length; i++) {
 			assertEquals(fontes[i], fontesSalvas.get(i));
 		}
-		
 	}
 
 	static void excecaoCriarFonte(FachadaExperimento fachada, Titular titular, FontePagadora fonte, String mensagem) {
