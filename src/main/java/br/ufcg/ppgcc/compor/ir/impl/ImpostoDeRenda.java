@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.ufcg.ppgcc.compor.ir.Dependente;
 import br.ufcg.ppgcc.compor.ir.ExcecaoImpostoDeRenda;
 import br.ufcg.ppgcc.compor.ir.FachadaExperimento;
 import br.ufcg.ppgcc.compor.ir.FontePagadora;
@@ -16,6 +17,8 @@ public class ImpostoDeRenda implements FachadaExperimento {
 	private Map<Titular, List<FontePagadora>> mapaFontes = new HashMap<Titular, List<FontePagadora>>();
 	private List<FontePagadora> fontes = new ArrayList<FontePagadora>() ;
 	
+	private Map<Titular, List<Dependente>> mapaDependentes = new HashMap<Titular, List<Dependente>>();
+	private List<Dependente> dependentes = new ArrayList<Dependente>() ;
 	
 	
 	public void criarNovoTitular(Titular titular) {
@@ -42,7 +45,6 @@ public class ImpostoDeRenda implements FachadaExperimento {
 	
 		return titular1;
 
-		//return null;
 	}
 	public List<FontePagadora> listarFontes(Titular titular) {
 		// TODO Auto-generated method stub
@@ -51,21 +53,6 @@ public class ImpostoDeRenda implements FachadaExperimento {
 	public void criarFontePagadora(Titular titular, FontePagadora fonte) {
 		/* Primeira coisa, eu preciso pegar a fonte do titular, se já existir */
 		List<FontePagadora> fontesDoTitular = mapaFontes.get(titular);
-		
-		/* Verifico se existe, ou se é null */
-		//if (fontesDoTitular == null) {
-			/* Se não existe, cria nova lista */
-			//fontesDoTitular = new ArrayList<FontePagadora>();
-		//}
-		/* Adiciona a nova fonte na nova lista, ou na lista que já existia */
-		//fontesDoTitular.add(fonte);
-		
-		/* Devolvo ao mapa */
-		//mapaFontes.put(titular, fontesDoTitular);
-		
-//		fontes.add(fonte);
-		
-//		T.02.04
 		
 		if (fonte.getNome() == null){
 			throw new ExcecaoImpostoDeRenda("O campo nome é obrigatório");				
@@ -89,29 +76,37 @@ public class ImpostoDeRenda implements FachadaExperimento {
 		if (fontesDoTitular == null) {
 			throw new ExcecaoImpostoDeRenda("Titular não cadastrado");
 			/* Se não existe, cria nova lista */
-			//fontesDoTitular = new ArrayList<FontePagadora>();
+			
 		}
 		/* Adiciona a nova fonte na nova lista, ou na lista que já existia */
 		
 		fontesDoTitular.add(fonte);
-		//fontes.add(fonte);
+	
 		
+	}
+
+	public void criarDependente(Titular titular, Dependente dependente) {
+		/*pego os dependentes*/
+		List<Dependente> dependentesDoTitular = mapaDependentes.get(titular);
+	
+		dependentes.add(dependente);	
+		mapaDependentes.put(titular, dependentes);
 		
+		if (dependentesDoTitular == null) {
 		
-			/* Devolvo ao mapa */
-		//mapaFontes.put(titular, fontes);
+			dependentesDoTitular = new ArrayList<Dependente>();
+	
+		}
 		
-		
-		
-//		fontes.add(fonte);
+		dependentesDoTitular.add(dependente);
+		mapaDependentes.put(titular,dependentesDoTitular);
+		dependentes.add(dependente);
 		
 		
 	}
 
-	//public List<FontePagadora> listarFontes(Titular titular) {
-	//	return mapaFontes.get(titular);
-	//}
-
-	
+	public List<Dependente> listarDependentes(Titular titular) {
+		 return mapaDependentes.get(titular);
+	}
 
 }
